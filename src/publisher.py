@@ -2,7 +2,7 @@
 
 import json
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import redis.asyncio as redis
 
@@ -19,7 +19,7 @@ class RedisPublisher:
     def __init__(self, config: Config, logger: logging.Logger) -> None:
         self.config = config
         self.logger = logger
-        self._client: redis.Redis | None = None
+        self._client: redis.Redis[str] | None = None
 
     async def connect(self) -> None:
         """Connect to Redis."""
@@ -42,11 +42,11 @@ class RedisPublisher:
     async def disconnect(self) -> None:
         """Disconnect from Redis."""
         if self._client:
-            await self._client.aclose()
+            await self._client.close()
             self._client = None
             self.logger.info("Disconnected from Redis")
 
-    def _serialize(self, data: dict) -> str:
+    def _serialize(self, data: dict[str, Any]) -> str:
         """
         Serialize data to JSON.
 

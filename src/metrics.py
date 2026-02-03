@@ -4,6 +4,7 @@ import logging
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
+
 from pythonjsonlogger import jsonlogger
 
 
@@ -13,7 +14,7 @@ def setup_logging(log_level: str = "INFO") -> logging.Logger:
     logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
 
     handler = logging.StreamHandler()
-    formatter = jsonlogger.JsonFormatter(
+    formatter = jsonlogger.JsonFormatter(  # type: ignore[no-untyped-call]
         fmt="%(asctime)s %(levelname)s %(name)s %(message)s",
         datefmt="%Y-%m-%dT%H:%M:%SZ",
     )

@@ -74,7 +74,9 @@ def validate_tick(data: dict[str, Any], logger: logging.Logger) -> ValidatedTick
 
     # Validate bid < ask (normal market condition)
     if best_bid >= best_ask:
-        logger.warning("Bid >= Ask (crossed market)", extra={"bid": best_bid, "ask": best_ask})
+        logger.warning(
+            "Bid >= Ask (crossed market)", extra={"bid": best_bid, "ask": best_ask}
+        )
         return None
 
     # Parse timestamp

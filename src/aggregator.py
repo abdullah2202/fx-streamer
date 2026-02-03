@@ -61,7 +61,7 @@ class Aggregator:
 
     # Current candles: {(instrument, period): Candle}
     _candles: dict[tuple[str, int], Candle] = field(default_factory=dict)
-    _flush_task: asyncio.Task | None = field(default=None, init=False)
+    _flush_task: asyncio.Task[None] | None = field(default=None, init=False)
 
     def _get_period_start(self, timestamp: float, period: int) -> float:
         """Get the start of the current period."""

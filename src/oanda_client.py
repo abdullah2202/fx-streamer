@@ -96,7 +96,9 @@ class OandaClient:
                                     )
 
             except httpx.ReadTimeout:
-                self.metrics.record_disconnect("Read timeout (no heartbeat)", self.logger)
+                self.metrics.record_disconnect(
+                    "Read timeout (no heartbeat)", self.logger
+                )
                 self.metrics.record_reconnect(self.logger)
 
             except httpx.ConnectError as e:
