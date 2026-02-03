@@ -6,7 +6,6 @@ from typing import Any
 
 from .validator import ValidatedTick
 
-
 # Pip multipliers by instrument suffix
 # JPY pairs have 2 decimal places, others have 4
 PIP_MULTIPLIERS: dict[str, int] = {
