@@ -4,7 +4,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 
 
-class Config(BaseSettings):
+class Config(BaseSettings):  # type: ignore[misc]
     """Application configuration from environment variables."""
 
     # OANDA
