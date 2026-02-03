@@ -1,0 +1,41 @@
+services:
+  streamer:
+    build: .
+    container_name: fx-streamer
+    environment:
+      - OANDA_API_KEY
+      - OANDA_ACCOUNT_ID
+      - OANDA_ENVIRONMENT
+      - OANDA_INSTRUMENTS
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AGGREGATION_PERIODS=1s,5s
+      - LOG_LEVEL=INFO
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - fx-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: fx-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - fx-network
+
+networks:
+  fx-network:
+    driver: bridge
+
+volumes:
+  redis_data:
