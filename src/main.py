@@ -16,7 +16,7 @@ from .validator import is_heartbeat, validate_tick
 async def main() -> None:
     """Run the streaming bot."""
     # Load configuration
-    config = Config()
+    config = Config()  # type: ignore[call-arg]
 
     # Set up logging
     logger = setup_logging(config.log_level)
